@@ -32,7 +32,7 @@ class Entry(models.Model):
     author = models.ForeignKey(User, blank=True, null=True)
     headline = models.CharField(max_length=255)
     slug = models.CharField(max_length=32)
-    summary = models.TextField()
+    # summary = models.TextField()
     body = models.TextField(help_text='Check out <a href="http://markdownr.com/" target="_blank">Markdownr</a> &amp; <a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> for help.')
     categories = models.ManyToManyField(Category, blank=True)
     tags = TagField()
