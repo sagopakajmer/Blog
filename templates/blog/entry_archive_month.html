@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load markup %}
+{% block title %}Archives / {{ month|date:"F Y" }}{% endblock %}
+
+{% block content %}
+<h1>{{ month|date:"F Y" }}</h1>
+
+{% for object in object_list %}
+{% for category in object.categories.all %}
+<div class="post {{ category.slug }}">
+{% endfor %}
+  <h2 class="title"><a class="url" href="{{ object.url }}">{{ object.headline }}</a></h2>
+  <p class="dateline">Posted <span class="date">{{ object.pub_date|date:"F j, Y" }}</span></p>
+  {% for category in object.categories.all %}
+  <small class="categories">Categories: {{ category.title }}</small>
+  {% endfor %}
+  <div class="body">
+    {{ object.body|safe|markdown }}
+  </div>
+</div><!--/post-->
+{% endfor %}
+
+{% endblock %}
