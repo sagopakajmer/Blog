@@ -1,3 +1,7 @@
-#A SIMPLE BLOG
+##A Simple Blog
 
-Nothing more.
+Made just to fill a simple need.
+
+###Dependancies
+
+Django Tagging

@@ -30,11 +30,11 @@ class Entry(models.Model):
     """Blog model."""
     pub_date = models.DateTimeField()
     author = models.ForeignKey(User, blank=True, null=True)
+    categories = models.ManyToManyField(Category, blank=True)
     headline = models.CharField(max_length=255)
     slug = models.CharField(max_length=32)
-    # summary = models.TextField()
-    body = models.TextField(help_text='Check out <a href="http://markdownr.com/" target="_blank">Markdownr</a> &amp; <a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> for help.')
-    categories = models.ManyToManyField(Category, blank=True)
+    summary = models.TextField(blank=True, null=True, help_text='Optional')
+    body = models.TextField(help_text='Use <a href="http://markdownr.com/" target="_blank">Markdown</a>')
     tags = TagField()
 
     class Meta:
