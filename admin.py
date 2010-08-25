@@ -1,5 +1,5 @@
 from django.contrib.admin import ModelAdmin, site
-from ebblog.blog.models import *
+from blog.models import *
 
 class CategoryAdmin(ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}

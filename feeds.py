@@ -1,6 +1,6 @@
 from django.contrib.syndication.feeds import Feed
 from django.utils.feedgenerator import Rss201rev2Feed
-from ebblog.blog.models import Entry
+from blog.models import Entry
 
 # RSS feeds powered by Django's syndication framework use MIME type
 # 'application/rss+xml'. That's unacceptable to us, because that MIME type
