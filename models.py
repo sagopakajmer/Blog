@@ -36,7 +36,7 @@ class Entry(models.Model):
     summary = models.TextField(blank=True, null=True, help_text='Optional')
     asset = models.TextField(blank=True, null=True, help_text='Images or video embed')
     caption = models.TextField(blank=True, null=True, help_text='Optional')
-    url = models.URLField([verify_exists=True, max_length=200, blank=True, null=True])
+    url = models.URLField(max_length=200, blank=True, null=True)
     body = models.TextField(help_text='Use <a href="http://markdownr.com/" target="_blank">Markdown</a>')
     tags = TagField()
 
