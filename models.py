@@ -35,7 +35,6 @@ class Entry(models.Model):
     slug = models.CharField(max_length=32)
     summary = models.TextField(blank=True, null=True, help_text='Optional')
     asset = models.TextField(blank=True, null=True, help_text='Images or video embed')
-    caption = models.TextField(blank=True, null=True, help_text='Optional')
     link_url  = models.URLField(verify_exists=True, null=True, blank=True)
     body = models.TextField(help_text='Use <a href="http://markdownr.com/" target="_blank">Markdown</a>')
     tags = TagField()
