@@ -25,6 +25,11 @@ class Category(models.Model):
     def get_absolute_url(self):
         return ('blog_category_detail', None, {'slug': self.slug})
 
+ASSET_CHOICES = (
+    ('photo', 'Photo'),
+    ('video', 'Video'),
+    ('text', 'Text'),
+)
 
 class Entry(models.Model):
     """Blog model."""
@@ -34,7 +39,7 @@ class Entry(models.Model):
     headline = models.CharField(max_length=255)
     slug = models.CharField(max_length=32)
     summary = models.TextField(blank=True, null=True, help_text='Optional')
-    asset = models.TextField(blank=True, null=True, help_text='Images or video embed')
+    asset = models.TextField(blank=True, null=True, choices=ASSET_CHOICES, help_text='photo, video embed or link')
     link_url  = models.URLField(verify_exists=True, null=True, blank=True)
     body = models.TextField(help_text='Use <a href="http://markdownr.com/" target="_blank">Markdown</a>')
     tags = TagField()
