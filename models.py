@@ -32,14 +32,7 @@ class Entry(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
     headline = models.CharField(max_length=255)
     slug = models.CharField(max_length=32)
-    summary = models.TextField(blank=True, null=True, help_text='Optional')
-    ASSET_CHOICES = (
-      ('photo', 'Photo'),
-      ('video', 'Video'),
-      ('text', 'Text'),
-    )
-    asset = models.CharField(blank=True, null=True, choices=ASSET_CHOICES, max_length=300, help_text='photo, video embed or link')
-    link_url  = models.URLField(verify_exists=True, null=True, blank=True)
+    asset = models.TextField(blank=True, null=True, help_text='Image, video or link')
     body = models.TextField(help_text='Use <a href="http://markdownr.com/" target="_blank">Markdown</a>')
     tags = TagField()
 
