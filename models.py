@@ -38,7 +38,7 @@ class Entry(models.Model):
       ('video', 'Video'),
       ('text', 'Text'),
     )
-    asset = models.CharField(blank=True, null=True, choices=ASSET_CHOICES, help_text='photo, video embed or link')
+    asset = models.CharField(blank=True, null=True, choices=ASSET_CHOICES, max_length=300, help_text='photo, video embed or link')
     link_url  = models.URLField(verify_exists=True, null=True, blank=True)
     body = models.TextField(help_text='Use <a href="http://markdownr.com/" target="_blank">Markdown</a>')
     tags = TagField()
