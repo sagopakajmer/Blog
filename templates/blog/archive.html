@@ -9,13 +9,20 @@
 
 {% regroup object_list by pub_date.year as entries_by_year %}
 {% for group in entries_by_year %}
-<h2 class="yeargrouper">{{ group.grouper }}</h2>
-<ul id="archiveslist" class="linklist">
+
+<h3 class="yeargrouper">{{ group.grouper }}</h3>
+
+<table class="posts-table">
+<tbody>
 {% for entry in group.list %}
-	<li><strong class="date">{{ entry.pub_date|date:"M j" }}</strong> <a class="title" href="/blog{{ entry.url }}">{{ entry.headline }}</a>
-    {# {{ entry.summary|safe|markdown }} #}
-	</li>
+  <tr>
+    <td class="date small"><p><a href="{{ entry.url }}">{{ entry.pub_date|date:"j b Y" }}</a></p></td>
+    <td class="title"><a href="{{ entry.url }}">{{ entry.headline }}</a></td>
+    <td class="category icon">{{ entry.categories.title }}</td>
+  </tr>
 {% endfor %}
-</ul>
+</tbody>
+</table>
+
 {% endfor %}
 {% endblock %}

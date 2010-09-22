@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load markup %}
+{% load oembed_tags markup %}
 {% block title %}Blog{% endblock %}
 
 {% block pageid %}blog{% endblock %}
@@ -7,17 +7,75 @@
 {% block content %}
 {% for object in latest %}
 {% for category in object.categories.all %}
-<div class="post {{ category.slug }}">
+
+{% if category.slug == "text" %}
+  <article class="text {{ object.tags }}">
+    <h4 class="title"><a class="url" href="{{ object.url }}">{{ object.headline }}</a></h4>
+    <a href="{{ object.url }}"><span class="icon">{{ object.categories.slug }}</span></a>
+    <div class="body">
+      {% if object.asset%}
+      <div class="asset">
+        {{ object.asset|oembed|markdown|safe }}
+      </div>
+      {% endif %}
+      {{ object.body|markdown|safe }}
+      <p class="date"><a href="{{ object.url }}">{{ object.pub_date|date:"j b Y" }}</a></p>
+    </div><!--body-->
+  </article><!--/post_text-->
+{% endif %}
+
+{% if category.slug == "photo" %}
+  <article class="photo photo {{ object.tags }}">
+    <a href="{{ object.url }}"><span class="icon">{{ object.categories.slug }}</span></a>
+    <div class="body">
+      <div class="asset">
+        {{ object.asset|markdown|safe|oembed }}
+      </div>
+      <div class="caption">
+        {{ object.body|markdown|safe }}
+      </div>
+      <p class="date"><a href="{{ object.url }}">{{ object.pub_date|date:"j b Y" }}</a></p>
+    </div><!--body-->
+	</article><!--/post_photo-->
+{% endif %}
+
+{% if category.slug == "quote" %}
+  <article class="post quote {{ object.tags }}">
+    <a href="{{ object.url }}"><span class="icon">{{ object.categories.slug }}</span></a>
+    <div class="body">
+      <p class="quote_body"><span class="left_quote">&#8220;</span>{{ object.asset }}<span>&#8221;</span></p>
+      <h5 class="top">- {{ object.body }}</h5>
+      <p class="date"><a href="{{ object.url }}">{{ object.pub_date|date:"j b Y"}}</a></p>
+    </div><!--body-->
+  </article><!--/post_quote-->
+{% endif %}
+
+{% if category.slug == "link" %}
+  <article class="post link {{ object.tags }}">
+    <a href="{{ object.url }}"><span class="icon">{{ object.categories.slug }}</span></a>
+    <h4 class="bottom"><a class="url link" href="{{ object.asset|safe }}" target="_blank">{{ object.headline }}</a></h4>
+    <p class="url bottom top small">{{ object.asset|urlizetrunc:30 }}</p>
+    <div class="body">
+      {{ object.body|markdown|safe }}
+      <p class="date"><a href="{{ object.url }}">{{ object.pub_date|date:"j b Y" }}</a></p>
+    </div><!--body-->
+  </article><!--/post_link-->
+{% endif %}
+
+{% if category.slug == "video" %}
+  <article class="video {{ object.tags }}">
+    <a href="{{ object.url }}"><span class="icon">{{ object.categories.slug }}</span></a>
+    <div class="body">
+        {{ object.asset|oembed:"400x400" }}
+      <div class="caption">
+        {{ object.body|markdown|safe}}
+        <p class="date"><a href="{{ object.url }}">{{ object.pub_date|date:"j b Y" }}</a></p>
+      </div>
+    </div><!--body-->
+  </article><!--/post_video-->
+{% endif %}
+
+
 {% endfor %}
-  <h2 class="title"><a class="url" href="/blog{{ object.url }}">{{ object.headline }}</a></h2>
-  <p class="dateline">Posted <span class="date">{{ object.pub_date|date:"F j, Y" }}</span></p>
-  {% for category in object.categories.all %}
-  <small class="categories">Categories: {{ category.title }}</small>
-  {% endfor %}
-  <div class="body">
-    {{ object.body|safe|markdown }}
-    {% include "includes/post_tags.html" %}  
-  </div>
-</div><!--/post-->
 {% endfor %}
 {% endblock %}
