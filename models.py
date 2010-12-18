@@ -11,16 +11,16 @@ class Category(models.Model):
     """Category model."""
     title = models.CharField(_('title'), max_length=100)
     slug = models.SlugField(_('slug'), unique=True)
- 
+
     class Meta:
         verbose_name = _('category')
         verbose_name_plural = _('categories')
         db_table = 'blog_categories'
         ordering = ('title',)
- 
+
     def __unicode__(self):
         return u'%s' % self.title
- 
+
     @permalink
     def get_absolute_url(self):
         return ('blog_category_detail', None, {'slug': self.slug})
@@ -35,7 +35,7 @@ class Entry(models.Model):
     asset = models.TextField(blank=True, null=True, help_text='Add an image, video, link, or Tweet')
     body = models.TextField(help_text='Use <a href="http://markdownr.com/" target="_blank">Markdown</a>')
     tags = TagField()
-	allow_comments = models.BooleanField(_('allow comments'), default=False, help_text='Enable to start a conversation')
+    allow_comments = models.BooleanField(_('allow comments'), default=False, help_text='Enable to start a conversation')
 
     class Meta:
         verbose_name_plural = 'entries'
