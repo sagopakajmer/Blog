@@ -32,9 +32,10 @@ class Entry(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
     headline = models.CharField(max_length=255)
     slug = models.CharField(max_length=32)
-    asset = models.TextField(blank=True, null=True, help_text='Image, video or link')
+    asset = models.TextField(blank=True, null=True, help_text='Image, video, link, or Tweet')
     body = models.TextField(help_text='Use <a href="http://markdownr.com/" target="_blank">Markdown</a>')
     tags = TagField()
+	allow_comments = models.BooleanField(_('allow comments'), default=False)
 
     class Meta:
         verbose_name_plural = 'entries'
